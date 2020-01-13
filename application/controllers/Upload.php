@@ -1,5 +1,5 @@
 <?php
-
+error_reporting(0);
 class Upload extends CI_Controller {
 
         public function __construct()
@@ -34,6 +34,10 @@ class Upload extends CI_Controller {
 
                         $this->load->view('upload_success', $data);
                 }
+        }
+        public function lihatfile()
+        {
+                $this->load->view('lihatfile',$data);
         }
 }
 ?>
