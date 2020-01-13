@@ -68,25 +68,34 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <body>
 
 <div id="container">
-	<h1>Uprak 2020! Format File NoAbsen-Kelas-NoKelompok</h1>
+	<h1>Lost File : Format File NoAbsen-Kelas-NoKelompok</h1>
 
 	<div id="body">
+	<?php
+$folder = "./uploads"; //Sesuaikan Folder nya
+if(!($buka_folder = opendir($folder))) die ("eRorr... Tidak bisa membuka Folder");
 
-<?php echo $error;?>
+$file_array = array();
+while($baca_folder = readdir($buka_folder))
+ {
+  if(substr($baca_folder,0,1) != '.')
+   {
+     $file_array[] =  $baca_folder;
+    }
+ }
 
-<?php echo form_open_multipart('upload/do_upload');?>
+ while(list($index, $nama_file) = each($file_array))
+  {
+   $nomor = $index + 1;
+   echo "$nomor. $nama_file(". round(filesize($nama_file)/1024,1) . "kb)<br/>";
+ }
 
-<input type="file" name="userfile" size="20" />
+closedir($buka_folder);
+?> 
+<p><?php echo anchor('upload', 'Upload Another File!'); ?></p>
+    </div>
 
-<br /><br />
-
-<input type="submit" value="upload" />
-<a href="<?= base_url('upload/lihatfile')?>">Lihat File</a>
-</form>
-
-</div>
-
-	<p class="footer">Page rendered in <strong>{elapsed_time}</strong> seconds. <?php echo  (ENVIRONMENT === 'development') ?  ' Version <strong> Fratz 4.0</strong>' : '' ?></p>
+	<p class="footer">Page rendered in <strong>{elapsed_time}</strong> seconds. <?php echo  (ENVIRONMENT === 'development') ?  'CodeIgniter Version <strong>' . CI_VERSION . '</strong>' : '' ?></p>
 </div>
 
 </body>
